@@ -1,3 +1,4 @@
+import { errorMessages } from '../constants/ErrorMessages';
 export const API_END_POINT = 'https://kdt-frontend.programmers.co.kr';
 export const request = async (url, options = {}) => {
   try {
@@ -12,8 +13,8 @@ export const request = async (url, options = {}) => {
     if (res.ok) {
       return await res.json();
     }
-    throw new Error('API 처리 중 뭔가 이상합니다!');
+    throw new Error(errorMessages.API_FAILURE_MESSAGE);
   } catch (e) {
-    throw new Error(`무엇인가 이상합니다 ${e.message}`);
+    throw new Error(`${errorMessages.API_ERROR_MESSAGE} ${e.message}`);
   }
 };
