@@ -1,5 +1,8 @@
-import { push } from '../domain/router.js';
-export default function PostList({ $target, initialState, onAdd, onDelete }) {
+import { push } from '../domain/router';
+import { validationComponent } from '../utils/validation';
+export default function PostList({ $target, initialState, addDocument, deleteDocument }) {
+  validationComponent(new.target);
+
   const $postList = document.createElement('div');
   $target.appendChild($postList);
 
@@ -51,10 +54,10 @@ export default function PostList({ $target, initialState, onAdd, onDelete }) {
     const id = $li?.dataset.id;
     if (className) {
       if (className === 'delete-button') {
-        onDelete(id);
+        deleteDocument(id);
         return;
       } else {
-        onAdd(id, className);
+        addDocument(id, className);
         return;
       }
     }

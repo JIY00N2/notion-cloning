@@ -1,12 +1,14 @@
+import { validationComponent } from '../utils/validation';
+
 export default function Editor({
   $target,
   initialState = {
     title: '',
     content: '',
   },
-  onEditing,
+  editDocument,
 }) {
-  // new.target 검사
+  validationComponent(new.target);
 
   const $editor = document.createElement('div');
   $target.appendChild($editor);
@@ -37,7 +39,7 @@ export default function Editor({
   $editor.querySelector('[name=title]').addEventListener('keyup', (e) => {
     const nextState = { ...this.state, title: e.target.value };
     this.setState(nextState);
-    onEditing(this.state);
+    editDocument(this.state);
   });
 
   $editor.querySelector('[name=content]').addEventListener('input', (e) => {
@@ -46,6 +48,6 @@ export default function Editor({
       content: e.target.value,
     };
     this.setState(nextState);
-    onEditing(this.state);
+    editDocument(this.state);
   });
 }

@@ -1,10 +1,12 @@
-import { request } from '../domain/api.js';
-import { push } from '../domain/router.js';
-import Header from './Header.js';
-import PostList from './PostList.js';
+import { request } from '../domain/api';
+import { push } from '../domain/router';
+import { validationComponent } from '../utils/validation';
+import Header from './Header';
+import PostList from './PostList';
 
 export default function DocumentPage({ $target }) {
-  // new 방어코드
+  validationComponent(new.target);
+
   const $page = document.createElement('div');
 
   new Header({
@@ -17,13 +19,13 @@ export default function DocumentPage({ $target }) {
   const postList = new PostList({
     $target: $page,
     initialState: [],
-    onDelete: async (id) => {
+    deleteDocument: async (id) => {
       await request(`/documents/${id}`, {
         method: 'DELETE',
       });
       push('/');
     },
-    onAdd: async (id, className) => {
+    addDocument: async (id, className) => {
       if (className === 'add-button') {
         const document = {
           title: 'new',

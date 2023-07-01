@@ -1,7 +1,9 @@
 import { push } from '../domain/router';
+import { validationComponent } from '../utils/validation';
 
 export default function SidebarList({ $target, initialState }) {
-  // new 검사
+  validationComponent(new.target);
+
   const $sidebarList = document.createElement('div');
   $target.appendChild($sidebarList);
 

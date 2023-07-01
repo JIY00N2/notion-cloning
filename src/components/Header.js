@@ -1,6 +1,9 @@
 import { push } from '../domain/router';
+import { validationComponent } from '../utils/validation';
 
 export default function Header({ $target, initialState }) {
+  validationComponent(new.target);
+
   const $header = document.createElement('div');
   $target.appendChild($header);
 

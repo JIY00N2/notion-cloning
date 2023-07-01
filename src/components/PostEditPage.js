@@ -1,11 +1,13 @@
-import { request } from '../domain/api.js';
-import Editor from './Editor.js';
-import SidebarList from './SidebarList.js';
-import notionStorage from '../store/notionStorage.js';
-import debounce from '../domain/debounce.js';
+import { request } from '../domain/api';
+import Editor from './Editor';
+import SidebarList from './SidebarList';
+import notionStorage from '../store/notionStorage';
+import debounce from '../domain/debounce';
+import { validationComponent } from '../utils/validation';
 
 export default function PostEditPage({ $target, initialState, updateList }) {
-  // new target 검사
+  validationComponent(new.target);
+
   const $page = document.createElement('div');
 
   this.state = initialState;
@@ -18,7 +20,7 @@ export default function PostEditPage({ $target, initialState, updateList }) {
       title: '',
       content: '',
     },
-    onEditing: (post) => {
+    editDocument: (post) => {
       saveStorage(post);
       saveServer(post);
     },
@@ -30,7 +32,7 @@ export default function PostEditPage({ $target, initialState, updateList }) {
   });
 
   const saveStorage = debounce((post) => {
-    notionStorage.setItem(postLocalSaveKey, {
+    notionStorage.setStorageItem(postLocalSaveKey, {
       ...post,
       tempSaveDate: new Date(),
     });
@@ -42,7 +44,7 @@ export default function PostEditPage({ $target, initialState, updateList }) {
       body: JSON.stringify(newpost),
     });
 
-    notionStorage.removeItem(postLocalSaveKey);
+    notionStorage.removeStorageItem(postLocalSaveKey);
     updateList();
 
     const post = await fetchRequest(newpost.id);
@@ -69,7 +71,7 @@ export default function PostEditPage({ $target, initialState, updateList }) {
   const fetchPost = async () => {
     const { postId } = this.state;
     const post = await fetchRequest(postId);
-    const tempPost = notionStorage.getItem(postLocalSaveKey, {
+    const tempPost = notionStorage.getStorageItem(postLocalSaveKey, {
       title: '',
       content: '',
     });
