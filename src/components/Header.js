@@ -5,6 +5,7 @@ export default function Header({ $target, initialState }) {
   validationComponent(new.target);
 
   const $header = document.createElement('div');
+  $header.classList.add('sidebar-header');
   $target.appendChild($header);
 
   this.state = initialState;

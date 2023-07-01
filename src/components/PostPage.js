@@ -3,11 +3,13 @@ import { push } from '../domain/router';
 import { validationComponent } from '../utils/validation';
 import Header from './Header';
 import PostList from './PostList';
+import { deleteDocument, createDocument } from '../domain/apiCall';
 
 export default function DocumentPage({ $target }) {
   validationComponent(new.target);
 
   const $page = document.createElement('div');
+  $page.classList.add('list-page');
 
   new Header({
     $target: $page,
@@ -19,19 +21,14 @@ export default function DocumentPage({ $target }) {
   const postList = new PostList({
     $target: $page,
     initialState: [],
-    deleteDocument: async (id) => {
-      await request(`/documents/${id}`, {
-        method: 'DELETE',
-      });
-      push('/');
-    },
+    deleteDocument,
     addDocument: async (id, className) => {
       if (className === 'add-button') {
         const document = {
-          title: 'new',
+          title: '새로운 문서',
           parent: id,
         };
-        const newDocument = await fetchNewDocument(document);
+        const newDocument = await createDocument(document);
         push(`/documents/${newDocument.id}`);
         this.render();
       }
@@ -43,13 +40,13 @@ export default function DocumentPage({ $target }) {
     postList.setState(data);
   };
 
-  const fetchNewDocument = async (document) => {
-    const newDocument = await request(`/documents`, {
-      method: 'POST',
-      body: JSON.stringify(document),
-    });
-    return await newDocument;
-  };
+  // const fetchNewDocument = async (document) => {
+  //   const newDocument = await request(`/documents`, {
+  //     method: 'POST',
+  //     body: JSON.stringify(document),
+  //   });
+  //   return await newDocument;
+  // };
 
   this.render = async () => {
     await fetchList();

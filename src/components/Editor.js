@@ -11,6 +11,7 @@ export default function Editor({
   validationComponent(new.target);
 
   const $editor = document.createElement('div');
+  $editor.classList.add('editor');
   $target.appendChild($editor);
 
   this.state = initialState;

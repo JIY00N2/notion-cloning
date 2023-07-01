@@ -1,14 +1,16 @@
-import { request } from '../domain/api';
 import Editor from './Editor';
-import SidebarList from './SidebarList';
+import BottomDocumentList from './BottomDocumentList';
 import notionStorage from '../store/notionStorage';
 import debounce from '../domain/debounce';
 import { validationComponent } from '../utils/validation';
+import { updateDocument, getDocument } from '../domain/apiCall';
+import { TEMP_DATA_MESSAGE } from '../constants';
 
-export default function PostEditPage({ $target, initialState, updateList }) {
+export default function PostEditPage({ $target, initialState, renderDocumentList }) {
   validationComponent(new.target);
 
   const $page = document.createElement('div');
+  $page.classList.add('edit-page');
 
   this.state = initialState;
 
@@ -26,28 +28,25 @@ export default function PostEditPage({ $target, initialState, updateList }) {
     },
   });
 
-  const sidebarList = new SidebarList({
+  const bottomDocumentList = new BottomDocumentList({
     $target: $page,
     initialState: [],
   });
 
   const saveStorage = debounce((post) => {
-    notionStorage.setStorageItem(postLocalSaveKey, {
+    notionStorage.setItemToStorage(postLocalSaveKey, {
       ...post,
       tempSaveDate: new Date(),
     });
   }, 1000);
 
   const saveServer = debounce(async (newpost) => {
-    await request(`/documents/${newpost.id}`, {
-      method: 'PUT',
-      body: JSON.stringify(newpost),
-    });
+    await updateDocument(newpost.id, newpost);
 
-    notionStorage.removeStorageItem(postLocalSaveKey);
-    updateList();
+    notionStorage.removeItemToStorage(postLocalSaveKey);
+    renderDocumentList();
 
-    const post = await fetchRequest(newpost.id);
+    const post = await getDocument(newpost.id);
     sidebarList.setState(post);
   }, 1000);
 
@@ -63,21 +62,21 @@ export default function PostEditPage({ $target, initialState, updateList }) {
     this.render();
 
     if (this.state.post) {
-      sidebarList.setState(this.state.post);
+      bottomDocumentList.setState(this.state.post);
       editor.setState(this.state.post);
     }
   };
 
   const fetchPost = async () => {
     const { postId } = this.state;
-    const post = await fetchRequest(postId);
-    const tempPost = notionStorage.getStorageItem(postLocalSaveKey, {
+    const post = await getDocument(postId);
+    const tempPost = notionStorage.getItemToStorage(postLocalSaveKey, {
       title: '',
       content: '',
     });
 
     if (tempPost.tempSaveDate && tempPost.tempSaveDate > post.updatedAt) {
-      if (confirm('저장되지 않은 임시 데이터가 있습니다 불러올까요?')) {
+      if (confirm(`${TEMP_DATA_MESSAGE}`)) {
         this.setState({
           ...this.state,
           post: tempPost,
@@ -94,11 +93,6 @@ export default function PostEditPage({ $target, initialState, updateList }) {
 
   this.render = () => {
     $target.appendChild($page);
-  };
-
-  const fetchRequest = async (postId) => {
-    const post = await request(`/documents/${postId}`);
-    return post;
   };
 }
 

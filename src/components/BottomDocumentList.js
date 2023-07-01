@@ -1,11 +1,12 @@
 import { push } from '../domain/router';
 import { validationComponent } from '../utils/validation';
 
-export default function SidebarList({ $target, initialState }) {
+export default function BottomDocumentList({ $target, initialState }) {
   validationComponent(new.target);
 
-  const $sidebarList = document.createElement('div');
-  $target.appendChild($sidebarList);
+  const $bottomDocumentList = document.createElement('div');
+  $bottomDocumentList.classList.add('sidebar-list');
+  $target.appendChild($bottomDocumentList);
 
   this.state = initialState;
 
@@ -14,15 +15,15 @@ export default function SidebarList({ $target, initialState }) {
     this.render();
   };
 
-  const sidebarList = (list) => {
+  const bottomDocumentList = (list) => {
     const text = `
     <ul>
       ${list
         .map(
           ({ id, title, documents }) => `
-        <div class="documents-tree">
+        <div class="sidebar-documents__tree">
           <li data-id="${id}">${title}</li>
-          ${documents.map((document) => sidebarList([document])).join('')}
+          ${documents.map((document) => bottomDocumentList([document])).join('')}
         </div>
       `,
         )
@@ -33,13 +34,13 @@ export default function SidebarList({ $target, initialState }) {
   };
 
   this.render = () => {
-    const documentsList = sidebarList(this.state);
-    $sidebarList.innerHTML = `<div>${documentsList}</div>`;
+    const documentsList = bottomDocumentList(this.state);
+    $bottomDocumentList.innerHTML = `<div>${documentsList}</div>`;
   };
 
   this.render();
 
-  $sidebarList.addEventListener('click', (e) => {
+  $bottomDocumentList.addEventListener('click', (e) => {
     const $li = e.target.closest('li');
     const id = $li.dataset.id;
     if ($li) {

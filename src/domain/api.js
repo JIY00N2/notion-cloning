@@ -1,12 +1,12 @@
-import { errorMessages } from '../constants/ErrorMessages';
-export const API_END_POINT = 'https://kdt-frontend.programmers.co.kr';
+import { errorMessages, API_END_POINT, USERNAME } from '../constants';
+
 export const request = async (url, options = {}) => {
   try {
     const res = await fetch(`${API_END_POINT}${url}`, {
       ...options,
       headers: {
         'Content-Type': 'application/json',
-        'x-username': 'jiyoon',
+        'x-username': `${USERNAME}`,
       },
     });
 

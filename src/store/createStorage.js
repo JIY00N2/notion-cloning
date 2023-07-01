@@ -1,9 +1,9 @@
 export default function createStorage(storage) {
-  const setStorageItem = (key, value) => {
+  const setItemToStorage = (key, value) => {
     storage.setItem(key, JSON.stringify(value));
   };
 
-  const getStorageItem = (key, defaultValue) => {
+  const getItemToStorage = (key, defaultValue) => {
     try {
       const storedValue = storage.getItem(key);
       return storedValue ? JSON.parse(storedValue) : defaultValue;
@@ -13,9 +13,9 @@ export default function createStorage(storage) {
     }
   };
 
-  const removeStorageItem = (key) => {
+  const removeItemToStorage = (key) => {
     storage.removeItem(key);
   };
 
-  return { setStorageItem, getStorageItem, removeStorageItem };
+  return { setItemToStorage, getItemToStorage, removeItemToStorage };
 }

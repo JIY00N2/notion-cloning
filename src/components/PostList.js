@@ -4,6 +4,7 @@ export default function PostList({ $target, initialState, addDocument, deleteDoc
   validationComponent(new.target);
 
   const $postList = document.createElement('div');
+  $postList.classList.add('post-list');
   $target.appendChild($postList);
 
   // 값 체크 필수
@@ -15,19 +16,19 @@ export default function PostList({ $target, initialState, addDocument, deleteDoc
     this.render();
   };
 
-  const drawDocumentList = (list) => {
+  const drawUpDocumentList = (list) => {
     const text = `
       <ul>
       ${list
         .map(
           ({ id, title, documents }) => `
-      <div class='documentsTree'>
+      <div class='documents-tree'>
         <li data-id="${id}">
         ${title}
-        <button class="add-button"> + </button>
-        <button class="delete-button"> - </button>
+        <button data-name="add" class="add-button"> + </button>
+        <button data-name="remove"class="delete-button"> - </button>
         </li>
-        ${documents.map((document) => drawDocumentList([document])).join('')}
+        ${documents.map((document) => drawUpDocumentList([document])).join('')}
       </div>
       `,
         )
@@ -39,7 +40,7 @@ export default function PostList({ $target, initialState, addDocument, deleteDoc
   };
 
   this.render = () => {
-    const documentsList = drawDocumentList(this.state);
+    const documentsList = drawUpDocumentList(this.state);
     const documentAddButton = `<button class="add-button">➕ 페이지 추가하기</button>`;
     $postList.innerHTML = `
       <div class="list">${documentsList}${documentAddButton}</div>
@@ -55,10 +56,10 @@ export default function PostList({ $target, initialState, addDocument, deleteDoc
     if (className) {
       if (className === 'delete-button') {
         deleteDocument(id);
-        return;
+        //return;
       } else {
         addDocument(id, className);
-        return;
+        //return;
       }
     }
     if ($li) {

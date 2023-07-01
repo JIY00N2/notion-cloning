@@ -1,3 +1,4 @@
+import HomePage from './components/HomePage';
 import PostPage from './components/PostPage';
 import PostEditPage from './components/PostEditPage';
 import { initRouter } from './domain/router';
@@ -12,14 +13,20 @@ export default function App({ $target }) {
   validationComponent(new.target);
 
   const $postEditContainer = document.createElement('div');
+  const $postListContainer = document.createElement('div');
   $target.appendChild($postEditContainer);
+  $target.appendChild($postListContainer);
 
   const postPage = new PostPage({
-    $target,
+    $target: $postListContainer,
+  });
+
+  const homePage = new HomePage({
+    $target: $postEditContainer,
   });
 
   const postEditPage = new PostEditPage({
-    $target,
+    $target: $postEditContainer,
     initialState: {
       postId: 'new',
       posts: {
@@ -27,7 +34,7 @@ export default function App({ $target }) {
         content: '',
       },
     },
-    updateList: () => {
+    renderDocumentList: () => {
       postPage.render();
     },
   });
@@ -40,8 +47,11 @@ export default function App({ $target }) {
       postEditPage.setState({ postId });
     } else {
       postPage.render();
+      homePage.render();
     }
   };
+
+  window.addEventListener('popstate', () => this.route());
 
   this.route();
   initRouter(() => this.route());

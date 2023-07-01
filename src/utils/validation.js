@@ -1,4 +1,4 @@
-import { errorMessages } from '../constants/ErrorMessages';
+import { errorMessages } from '../constants';
 
 export const validationComponent = (target) => {
   if (!target) {
