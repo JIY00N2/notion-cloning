@@ -1,4 +1,4 @@
-import PostPage from './components/PostsPage.js';
+import PostPage from './components/PostPage.js';
 import PostEditPage from './components/PostEditPage.js';
 import { initRouter } from './domain/router.js';
 
@@ -8,29 +8,38 @@ import { initRouter } from './domain/router.js';
 // /posts/new - 새 post 생성
 
 export default function App({ $target }) {
-  const postsPage = new PostPage({
+  const $postEditContainer = document.createElement('div');
+  $target.appendChild($postEditContainer);
+
+  const postPage = new PostPage({
     $target,
   });
+
   const postEditPage = new PostEditPage({
     $target,
     initialState: {
       postId: 'new',
-      post: {
+      posts: {
         title: '',
         content: '',
       },
     },
+    updateList: () => {
+      postPage.render();
+    },
   });
+
   this.route = () => {
-    $target.innerHTML = '';
+    $postEditContainer.innerHTML = '';
     const { pathname } = window.location;
-    if (pathname === '/') {
-      postsPage.setState();
-    } else if (pathname.indexOf('/posts/') === 0) {
+    if (pathname.indexOf('/documents/') === 0) {
       const [, , postId] = pathname.split('/');
       postEditPage.setState({ postId });
+    } else {
+      postPage.render();
     }
   };
+
   this.route();
   initRouter(() => this.route());
 }
