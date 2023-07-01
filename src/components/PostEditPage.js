@@ -1,7 +1,7 @@
 import { request } from '../domain/api.js';
 import Editor from './Editor.js';
 import SidebarList from './SidebarList.js';
-import { getItem, removeItem, setItem } from '../store/storage.js';
+import notionStorage from '../store/notionStorage.js';
 import debounce from '../domain/debounce.js';
 
 export default function PostEditPage({ $target, initialState, updateList }) {
@@ -30,7 +30,7 @@ export default function PostEditPage({ $target, initialState, updateList }) {
   });
 
   const saveStorage = debounce((post) => {
-    setItem(postLocalSaveKey, {
+    notionStorage.setItem(postLocalSaveKey, {
       ...post,
       tempSaveDate: new Date(),
     });
@@ -42,7 +42,7 @@ export default function PostEditPage({ $target, initialState, updateList }) {
       body: JSON.stringify(newpost),
     });
 
-    removeItem(postLocalSaveKey);
+    notionStorage.removeItem(postLocalSaveKey);
     updateList();
 
     const post = await fetchRequest(newpost.id);
@@ -69,7 +69,7 @@ export default function PostEditPage({ $target, initialState, updateList }) {
   const fetchPost = async () => {
     const { postId } = this.state;
     const post = await fetchRequest(postId);
-    const tempPost = getItem(postLocalSaveKey, {
+    const tempPost = notionStorage.getItem(postLocalSaveKey, {
       title: '',
       content: '',
     });
