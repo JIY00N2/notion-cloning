@@ -1,119 +1,103 @@
 import { request } from '../domain/api.js';
-import { getItem, removeItem, setItem } from '../store/storage.js';
 import Editor from './Editor.js';
-import LinkButton from './LinkButton.js';
+import SidebarList from './SidebarList.js';
+import { getItem, removeItem, setItem } from '../store/storage.js';
+import debounce from '../domain/debounce.js';
 
-export default function PostEditPage({ $target, initialState }) {
+export default function PostEditPage({ $target, initialState, updateList }) {
+  // new target 검사
   const $page = document.createElement('div');
 
   this.state = initialState;
 
   let postLocalSaveKey = `temp-post-${this.state.postId}`;
 
-  const post = getItem(postLocalSaveKey, {
-    title: '',
-    content: '',
-  });
-
-  let timer = null;
-
   const editor = new Editor({
     $target: $page,
-    initialState: post,
+    initialState: {
+      title: '',
+      content: '',
+    },
     onEditing: (post) => {
-      if (timer !== null) {
-        clearTimeout(timer);
-      }
-      timer = setTimeout(async () => {
-        setItem(postLocalSaveKey, {
-          ...post,
-          tempSaveDate: new Date(),
-        });
-        const isNew = this.state.postId === 'new';
-        if (isNew) {
-          const createPost = await request('/posts', {
-            method: 'POST',
-            body: JSON.stringify(post),
-          });
-          history.replaceState(null, null, `/posts/${createPost.id}`);
-          removeItem(postLocalSaveKey);
-          this.setState({
-            postId: createPost.id,
-          });
-        } else {
-          await request(`/posts/${post.id}`, {
-            method: 'PUT',
-            body: JSON.stringify(post),
-          });
-          removeItem(postLocalSaveKey);
-        }
-      }, 2000);
+      saveStorage(post);
+      saveServer(post);
     },
   });
+
+  const sidebarList = new SidebarList({
+    $target: $page,
+    initialState: [],
+  });
+
+  const saveStorage = debounce((post) => {
+    setItem(postLocalSaveKey, {
+      ...post,
+      tempSaveDate: new Date(),
+    });
+  }, 1000);
+
+  const saveServer = debounce(async (newpost) => {
+    await request(`/documents/${newpost.id}`, {
+      method: 'PUT',
+      body: JSON.stringify(newpost),
+    });
+
+    removeItem(postLocalSaveKey);
+    updateList();
+
+    const post = await fetchRequest(newpost.id);
+    sidebarList.setState(post);
+  }, 1000);
 
   this.setState = async (nextState) => {
     if (this.state.postId !== nextState.postId) {
       postLocalSaveKey = `temp-post-${nextState.postId}`;
       this.state = nextState;
-      if (this.state.postId === 'new') {
-        const post = getItem(postLocalSaveKey, {
-          title: '',
-          content: '',
-        });
-        this.render();
-        editor.setState(post);
-      } else {
-        await fetchPost();
-      }
+      await fetchPost();
       return;
     }
 
     this.state = nextState;
     this.render();
 
-    editor.setState(
-      this.state.post || {
-        title: '',
-        content: '',
-      },
-    );
+    if (this.state.post) {
+      sidebarList.setState(this.state.post);
+      editor.setState(this.state.post);
+    }
+  };
+
+  const fetchPost = async () => {
+    const { postId } = this.state;
+    const post = await fetchRequest(postId);
+    const tempPost = getItem(postLocalSaveKey, {
+      title: '',
+      content: '',
+    });
+
+    if (tempPost.tempSaveDate && tempPost.tempSaveDate > post.updatedAt) {
+      if (confirm('저장되지 않은 임시 데이터가 있습니다 불러올까요?')) {
+        this.setState({
+          ...this.state,
+          post: tempPost,
+        });
+        return;
+      }
+    }
+
+    this.setState({
+      ...this.state,
+      post,
+    });
   };
 
   this.render = () => {
     $target.appendChild($page);
   };
 
-  const fetchPost = async () => {
-    const { postId } = this.state;
-    if (postId !== 'new') {
-      const post = await request(`/posts/${postId}`);
-      const tempPost = getItem(postLocalSaveKey, {
-        title: '',
-        content: '',
-      });
-      if (tempPost.tempSaveDate && tempPost.tempSaveDate > post.updated_at) {
-        if (confirm('저장되지 않은 임시 데이터가 있습니다 불러올까요?')) {
-          this.setState({
-            ...this.state,
-            post: tempPost,
-          });
-          return;
-        }
-      }
-
-      this.setState({
-        ...this.state,
-        post,
-      });
-    }
+  const fetchRequest = async (postId) => {
+    const post = await request(`/documents/${postId}`);
+    return post;
   };
-  new LinkButton({
-    $target: $page,
-    initialState: {
-      text: '목록으로 이동',
-      link: '/',
-    },
-  });
 }
 
 // debounce -> 이벤트 발생 횟수를 줄일 수 있음
