@@ -1,4 +1,4 @@
-import createStorage from './createStorage.js';
+import createStorage from './createStorage';
 
 const notionStorage = createStorage(window.localStorage);
 export default notionStorage;
