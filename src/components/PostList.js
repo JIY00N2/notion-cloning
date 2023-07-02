@@ -1,5 +1,5 @@
 import { push } from '../domain/router';
-import { validateComponent } from '../utils/validation';
+import { validateComponent, validateArray } from '../utils/validation';
 export default function PostList({ $target, initialState, addDocument, deleteDocument }) {
   validateComponent(new.target);
 
@@ -7,11 +7,12 @@ export default function PostList({ $target, initialState, addDocument, deleteDoc
   $postList.classList.add('post-list');
   $target.appendChild($postList);
 
-  // 값 체크 필수
+  validateArray(initialState);
   this.state = initialState;
 
   // nextState로 업데이트
   this.setState = (nextState) => {
+    validateArray(nextState);
     this.state = nextState;
     this.render();
   };

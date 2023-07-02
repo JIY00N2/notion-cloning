@@ -1,5 +1,5 @@
 import { push } from '../domain/router';
-import { validateComponent } from '../utils/validation';
+import { validateArray, validateComponent } from '../utils/validation';
 
 export default function BottomDocumentList({ $target, initialState }) {
   validateComponent(new.target);
@@ -8,9 +8,11 @@ export default function BottomDocumentList({ $target, initialState }) {
   $bottomDocumentList.classList.add('sidebar-list');
   $target.appendChild($bottomDocumentList);
 
+  validateArray(initialState);
   this.state = initialState;
 
   this.setState = (nextState) => {
+    validateArray([nextState]);
     this.state = [nextState];
     this.render();
   };

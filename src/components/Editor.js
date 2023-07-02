@@ -1,4 +1,4 @@
-import { validateComponent } from '../utils/validation';
+import { validateComponent, validateString } from '../utils/validation';
 
 export default function Editor({
   $target,
@@ -14,9 +14,11 @@ export default function Editor({
   $editor.classList.add('editor');
   $target.appendChild($editor);
 
+  validateString(initialState);
   this.state = initialState;
 
   this.setState = (nextState) => {
+    validateString(nextState);
     this.state = nextState;
     const { title, content } = this.state;
     $editor.querySelector('[name=title]').value = title;
