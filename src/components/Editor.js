@@ -1,4 +1,4 @@
-import { validationComponent } from '../utils/validation';
+import { validateComponent } from '../utils/validation';
 
 export default function Editor({
   $target,
@@ -8,7 +8,7 @@ export default function Editor({
   },
   editDocument,
 }) {
-  validationComponent(new.target);
+  validateComponent(new.target);
 
   const $editor = document.createElement('div');
   $editor.classList.add('editor');

@@ -2,7 +2,7 @@ import HomePage from './components/HomePage';
 import PostPage from './components/PostPage';
 import PostEditPage from './components/PostEditPage';
 import { initRouter } from './domain/router';
-import { validationComponent } from './utils/validation';
+import { validateComponent } from './utils/validation';
 
 // url 규칙
 // 루트: postPage 그리기
@@ -10,7 +10,7 @@ import { validationComponent } from './utils/validation';
 // /posts/new - 새 post 생성
 
 export default function App({ $target }) {
-  validationComponent(new.target);
+  validateComponent(new.target);
 
   const $postEditContainer = document.createElement('div');
   const $postListContainer = document.createElement('div');

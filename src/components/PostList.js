@@ -1,7 +1,7 @@
 import { push } from '../domain/router';
-import { validationComponent } from '../utils/validation';
+import { validateComponent } from '../utils/validation';
 export default function PostList({ $target, initialState, addDocument, deleteDocument }) {
-  validationComponent(new.target);
+  validateComponent(new.target);
 
   const $postList = document.createElement('div');
   $postList.classList.add('post-list');

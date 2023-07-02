@@ -1,8 +1,8 @@
-import { validationComponent } from '../utils/validation';
+import { validateComponent } from '../utils/validation';
 import { homePageMessages } from '../constants';
 
 export default function HomePage({ $target }) {
-  validationComponent(new.target);
+  validateComponent(new.target);
 
   const $homePage = document.createElement('div');
 

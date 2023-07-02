@@ -1,8 +1,8 @@
 import { push } from '../domain/router';
-import { validationComponent } from '../utils/validation';
+import { validateComponent } from '../utils/validation';
 
 export default function BottomDocumentList({ $target, initialState }) {
-  validationComponent(new.target);
+  validateComponent(new.target);
 
   const $bottomDocumentList = document.createElement('div');
   $bottomDocumentList.classList.add('sidebar-list');

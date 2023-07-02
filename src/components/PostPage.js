@@ -1,12 +1,12 @@
 import { request } from '../domain/api';
 import { push } from '../domain/router';
-import { validationComponent } from '../utils/validation';
+import { validateComponent } from '../utils/validation';
 import Header from './Header';
 import PostList from './PostList';
 import { deleteDocument, createDocument } from '../domain/apiCall';
 
 export default function DocumentPage({ $target }) {
-  validationComponent(new.target);
+  validateComponent(new.target);
 
   const $page = document.createElement('div');
   $page.classList.add('list-page');

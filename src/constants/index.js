@@ -9,10 +9,12 @@ export const homePageMessages = {
   ADD_PAGE_MESSAGE: '페이지 추가 버튼으로 새 글을 작성해보세요!',
   ADD_BUTTON_MESSAGE: '+ 버튼으로 글을 추가하거나',
   DELETE_BUTTON_MESSAGE: '- 버튼으로 글을 삭제할 수 있습니다.',
-  BACK_TO_HOME: '노션 로고나 유저명을 누르면 홈으로 돌아올 수 있어요!',
+  BACK_TO_HOME: '유저명을 누르면 홈으로 돌아올 수 있어요!',
 };
 
 export const TEMP_DATA_MESSAGE = '저장되지 않은 임시 데이터가 있습니다 불러올까요?';
 
 export const API_END_POINT = 'https://kdt-frontend.programmers.co.kr';
 export const USERNAME = 'jiyoon';
+
+export const ROUTE_CHANGE_EVENT_NAME = 'route-change';

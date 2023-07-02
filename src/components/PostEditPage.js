@@ -2,12 +2,12 @@ import Editor from './Editor';
 import BottomDocumentList from './BottomDocumentList';
 import notionStorage from '../store/notionStorage';
 import debounce from '../domain/debounce';
-import { validationComponent } from '../utils/validation';
+import { validateComponent } from '../utils/validation';
 import { updateDocument, getDocument } from '../domain/apiCall';
 import { TEMP_DATA_MESSAGE } from '../constants';
 
 export default function PostEditPage({ $target, initialState, renderDocumentList }) {
-  validationComponent(new.target);
+  validateComponent(new.target);
 
   const $page = document.createElement('div');
   $page.classList.add('edit-page');
