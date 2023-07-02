@@ -12,9 +12,11 @@ import { validateComponent } from './utils/validation';
 export default function App({ $target }) {
   validateComponent(new.target);
   const $postListContainer = document.createElement('div');
+  $postListContainer.classList.add('document-list__container');
   $target.appendChild($postListContainer);
 
   const $postEditContainer = document.createElement('div');
+  $postEditContainer.classList.add('document-edit__container');
   $target.appendChild($postEditContainer);
 
   const postPage = new PostPage({

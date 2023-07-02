@@ -8,9 +8,9 @@ export const errorMessages = {
 
 export const homePageMessages = {
   HOME_TITLE: '노션 클로닝 프로젝트',
-  ADD_PAGE_MESSAGE: '페이지 추가 버튼으로 새 글을 작성해보세요!',
-  ADD_BUTTON_MESSAGE: '+ 버튼으로 글을 추가하거나',
-  DELETE_BUTTON_MESSAGE: '- 버튼으로 글을 삭제할 수 있습니다.',
+  ADD_PAGE_MESSAGE: '페이지 추가 버튼으로 새 글을 작성해 보세요.',
+  ADD_BUTTON_MESSAGE: '➕로 글을 추가하거나',
+  DELETE_BUTTON_MESSAGE: '➖로 글을 삭제할 수 있어요.',
   BACK_TO_HOME: '유저명을 누르면 홈으로 돌아올 수 있어요!',
 };
 

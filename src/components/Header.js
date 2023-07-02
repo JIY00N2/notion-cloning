@@ -14,7 +14,7 @@ export default function Header({ $target, initialState }) {
     const { user } = this.state;
     $header.innerHTML = `
       <div class="user">
-        <h2>${user}의 Notion</h2>
+        <h2 class="user-notion">📝 ${user}의 노션</h2>
       </div>
     `;
   };

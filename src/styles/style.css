@@ -1,2 +1,69 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap');
 @import 'reset.css';
+
+* {
+  font-family: 'Open Sans', sans-serif;
+  box-sizing: border-box;
+}
+html,
+body,
+head {
+  width: 100%;
+  height: 100%;
+  color: #4e4e4e;
+}
+#app {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+/* Sidebar 부분 */
+.document-list__container {
+  flex: 3;
+  height: 100%;
+  border-right: 1.3px solid rgba(78, 78, 78, 0.4);
+}
+
+.list-page {
+  height: 100%;
+}
+
+/* Header 부분 */
+.sidebar-header {
+  margin: 2rem 0rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.user-notion {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+/* Editor 부분 */
+.document-edit__container {
+  flex: 7;
+  height: 100%;
+}
+
+/* Home 부분 끝*/
+.home-page {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 10rem;
+  margin-left: 10rem;
+}
+
+.home-title {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
+
+.home-list__text {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
