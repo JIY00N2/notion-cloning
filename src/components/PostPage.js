@@ -40,14 +40,6 @@ export default function DocumentPage({ $target }) {
     postList.setState(data);
   };
 
-  // const fetchNewDocument = async (document) => {
-  //   const newDocument = await request(`/documents`, {
-  //     method: 'POST',
-  //     body: JSON.stringify(document),
-  //   });
-  //   return await newDocument;
-  // };
-
   this.render = async () => {
     await fetchList();
     $target.appendChild($page);

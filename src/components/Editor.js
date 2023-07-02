@@ -18,7 +18,6 @@ export default function Editor({
   this.state = initialState;
 
   this.setState = (nextState) => {
-    validateString(nextState);
     this.state = nextState;
     const { title, content } = this.state;
     $editor.querySelector('[name=title]').value = title;

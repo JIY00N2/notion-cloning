@@ -39,7 +39,7 @@ export default function PostEditPage({ $target, initialState, renderDocumentList
       ...post,
       tempSaveDate: new Date(),
     });
-  }, 1000);
+  }, 500);
 
   const saveServer = debounce(async (newpost) => {
     await updateDocument(newpost.id, newpost);
@@ -48,7 +48,7 @@ export default function PostEditPage({ $target, initialState, renderDocumentList
     renderDocumentList();
 
     const post = await getDocument(newpost.id);
-    sidebarList.setState(post);
+    bottomDocumentList.setState(post);
   }, 1000);
 
   this.setState = async (nextState) => {

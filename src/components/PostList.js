@@ -57,10 +57,10 @@ export default function PostList({ $target, initialState, addDocument, deleteDoc
     if (className) {
       if (className === 'delete-button') {
         deleteDocument(id);
-        //return;
+        return;
       } else {
         addDocument(id, className);
-        //return;
+        return;
       }
     }
     if ($li) {
