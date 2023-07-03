@@ -22,7 +22,7 @@ export default function Editor({
   const handleInputClick = (e) => {
     if (e.target.value === `${editDocumentMessages.INITIAL_DOCUMENT_TITLE}`) {
       e.target.value = '';
-      e.target.removeAttribute('placeholder');
+      // e.target.removeAttribute('placeholder');
       e.target.removeEventListener('click', handleInputClick);
     }
   };
