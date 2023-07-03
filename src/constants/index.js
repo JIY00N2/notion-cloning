@@ -20,3 +20,9 @@ export const API_END_POINT = 'https://kdt-frontend.programmers.co.kr';
 export const USERNAME = 'jiyoon';
 
 export const ROUTE_CHANGE_EVENT_NAME = 'route-change';
+
+export const editDocumentMessages = {
+  INITIAL_DOCUMENT_TITLE: '제목 없음',
+  DOCUMENT_TITLE_PLACEHOLDER: '제목을 입력하세요',
+  DOCUMENT_CONTENT_PLACEHOLDER: '내용을 입력하세요',
+};
