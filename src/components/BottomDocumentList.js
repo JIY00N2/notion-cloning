@@ -5,7 +5,7 @@ export default function BottomDocumentList({ $target, initialState }) {
   validateComponent(new.target);
 
   const $bottomDocumentList = document.createElement('div');
-  $bottomDocumentList.classList.add('bottom-document');
+  $bottomDocumentList.classList.add('bottom-document__container');
   $target.appendChild($bottomDocumentList);
 
   validateArray(initialState);
@@ -23,8 +23,8 @@ export default function BottomDocumentList({ $target, initialState }) {
       ${list
         .map(
           ({ id, title, documents }) => `
-        <div class="bottom-documents__tree">
-          <li class="bottom-document" data-id="${id}">${title}</li>
+        <div class="bottom-documents">
+          <li class="bottom-document__list" data-id="${id}">▶️${title}</li>
           ${documents.map((document) => bottomDocumentList([document])).join('')}
         </div>
       `,
@@ -37,7 +37,7 @@ export default function BottomDocumentList({ $target, initialState }) {
 
   this.render = () => {
     const documentsList = bottomDocumentList(this.state);
-    $bottomDocumentList.innerHTML = `<div>${documentsList}</div>`;
+    $bottomDocumentList.innerHTML = `<div class="bottom-documents__tree">${documentsList}</div>`;
   };
 
   this.render();

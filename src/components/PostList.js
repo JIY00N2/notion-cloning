@@ -25,7 +25,7 @@ export default function PostList({ $target, initialState, addDocument, deleteDoc
           ({ id, title, documents }) => `
       <div class='documents-tree'>
         <li data-id="${id}">
-        ${title}
+        ▶️${title}
         <button data-name="add" class="add-button"> + </button>
         <button data-name="remove"class="delete-button"> - </button>
         </li>

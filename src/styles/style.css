@@ -5,12 +5,21 @@
   font-family: 'Open Sans', sans-serif;
   box-sizing: border-box;
 }
+
 html,
-body,
-head {
+body {
   width: 100%;
   height: 100%;
-  color: #4e4e4e;
+}
+
+ul {
+  padding-left: 0.8rem;
+  cursor: pointer;
+}
+
+li {
+  padding-bottom: 0.3rem;
+  cursor: pointer;
 }
 
 #app {
@@ -55,7 +64,7 @@ head {
 
 .editor {
   width: 100%;
-  height: 85%;
+  height: 75%;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -80,9 +89,19 @@ head {
   line-height: 1.5;
 }
 
-.bottom-document {
+.bottom-document__container {
   width: 100%;
-  height: 15%;
+  display: flex;
+  margin-top: 2rem;
+  padding-left: 8rem;
+}
+
+.bottom-documents__tree {
+  width: 100%;
+}
+
+.bottom-document__list {
+  font-size: 15px;
 }
 
 /* Home 부분 끝*/
