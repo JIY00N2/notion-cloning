@@ -51,6 +51,10 @@ li {
   font-weight: 700;
 }
 
+.user {
+  cursor: pointer;
+}
+
 /* Editor 부분 */
 .document-edit__container {
   flex: 7;
