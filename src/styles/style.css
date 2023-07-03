@@ -142,7 +142,7 @@ li {
   padding: 0;
 }
 
-.page-add__button {
+.list > .add-button {
   width: 200px;
   height: 30px;
   border-radius: 0.5rem;
