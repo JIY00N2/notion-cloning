@@ -55,11 +55,34 @@ head {
 
 .editor {
   width: 100%;
-  height: 80%;
+  height: 85%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
-.bottom-document__list {
+
+.editor-title,
+.editor-content {
+  margin-top: 5rem;
+  padding: 1rem;
+  width: 70%;
+  border-radius: 0.5rem;
+  border: 2px solid #4e4e4e;
+  font-size: 15px;
+  font-weight: 600;
+  color: black;
+}
+
+.editor-content {
+  margin-top: 1rem;
+  height: 80%;
+  font-weight: normal;
+  line-height: 1.5;
+}
+
+.bottom-document {
   width: 100%;
-  height: 20%;
+  height: 15%;
 }
 
 /* Home 부분 끝*/
