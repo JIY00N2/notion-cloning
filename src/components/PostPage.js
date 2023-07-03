@@ -4,6 +4,7 @@ import { validateComponent } from '../utils/validation';
 import Header from './Header';
 import PostList from './PostList';
 import { deleteDocument, createDocument } from '../domain/apiCall';
+import { editDocumentMessages, USERNAME } from '../constants';
 
 export default function DocumentPage({ $target }) {
   validateComponent(new.target);
@@ -14,7 +15,7 @@ export default function DocumentPage({ $target }) {
   new Header({
     $target: $page,
     initialState: {
-      user: 'jiyoon',
+      user: `${USERNAME}`,
     },
   });
 
@@ -25,7 +26,7 @@ export default function DocumentPage({ $target }) {
     addDocument: async (id, className) => {
       if (className === 'add-button') {
         const document = {
-          title: '새로운 문서',
+          title: `${editDocumentMessages.INITIAL_DOCUMENT_TITLE}`,
           parent: id,
         };
         const newDocument = await createDocument(document);
