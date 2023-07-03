@@ -18,6 +18,7 @@ export default function Editor({
   this.state = initialState;
 
   this.setState = (nextState) => {
+    // 여기 유효성 검사가 안됨
     this.state = nextState;
     const { title, content } = this.state;
     $editor.querySelector('[name=title]').value = title;

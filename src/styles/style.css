@@ -12,6 +12,7 @@ head {
   height: 100%;
   color: #4e4e4e;
 }
+
 #app {
   display: flex;
   width: 100%;
@@ -45,6 +46,20 @@ head {
 .document-edit__container {
   flex: 7;
   height: 100%;
+}
+
+.edit-page {
+  width: 100%;
+  height: 100%;
+}
+
+.editor {
+  width: 100%;
+  height: 80%;
+}
+.bottom-document__list {
+  width: 100%;
+  height: 20%;
 }
 
 /* Home 부분 끝*/

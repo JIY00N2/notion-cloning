@@ -5,7 +5,7 @@ export default function BottomDocumentList({ $target, initialState }) {
   validateComponent(new.target);
 
   const $bottomDocumentList = document.createElement('div');
-  $bottomDocumentList.classList.add('sidebar-list');
+  $bottomDocumentList.classList.add('bottom-document__list');
   $target.appendChild($bottomDocumentList);
 
   validateArray(initialState);
