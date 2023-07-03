@@ -1,4 +1,5 @@
 import { validateComponent, validateString } from '../utils/validation';
+import { editDocumentMessages } from '../constants';
 
 export default function Editor({
   $target,
@@ -27,17 +28,25 @@ export default function Editor({
 
   this.render = () => {
     const { title, content } = this.state;
+    const titleValue = title === `${editDocumentMessages.INITIAL_DOCUMENT_TITLE}` ? '' : title;
     $editor.innerHTML = `
-      <input type='text' name='title' value="${title}"/>
-      <textarea name="content">${content}</textarea>
+      <input class="editor-title" type='text' name='title' value="${titleValue}" placeholder='${editDocumentMessages.DOCUMENT_TITLE_PLACEHOLDER}' onclick="handleInputClick(event)"/>
+      <textarea class="editor-content" name="content" placeholder='${editDocumentMessages.DOCUMENT_CONTENT_PLACEHOLDER}'>${content}</textarea>
     `;
+  };
 
-    // 개행처리가 안되는 이유?
-    // 서버에서 내려오는 개행 값은 \n
-    // textarea에서는 \n으로 개행을 처리해주는데 innerHTML은 replace를 이용해서 처리
+  // 이벤트 리스너를 제거하여 최초 클릭 이후에는 실행되지 않도록 함
+  const handleInputClick = (e) => {
+    if (e.target.value === `${editDocumentMessages.INITIAL_DOCUMENT_TITLE}`) {
+      e.target.value = '';
+      e.target.removeAttribute('placeholder');
+      e.target.removeEventListener('click', handleInputClick);
+    }
   };
 
   this.render();
+
+  $editor.querySelector('[name=title]').addEventListener('click', handleInputClick);
 
   $editor.querySelector('[name=title]').addEventListener('keyup', (e) => {
     const nextState = { ...this.state, title: e.target.value };
