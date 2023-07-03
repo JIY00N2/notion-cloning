@@ -18,6 +18,17 @@ export default function Editor({
   validateString(initialState);
   this.state = initialState;
 
+  // 이벤트 리스너를 제거하여 최초 클릭 이후에는 실행되지 않도록 함
+  const handleInputClick = (e) => {
+    if (e.target.value === `${editDocumentMessages.INITIAL_DOCUMENT_TITLE}`) {
+      e.target.value = '';
+      e.target.removeAttribute('placeholder');
+      e.target.removeEventListener('click', handleInputClick);
+    }
+  };
+
+  window.handleInputClick = handleInputClick; // 전역 범위에 함수 정의
+
   this.setState = (nextState) => {
     // 여기 유효성 검사가 안됨
     this.state = nextState;
@@ -35,19 +46,9 @@ export default function Editor({
     `;
   };
 
-  // 이벤트 리스너를 제거하여 최초 클릭 이후에는 실행되지 않도록 함
-  const handleInputClick = (e) => {
-    if (e.target.value === `${editDocumentMessages.INITIAL_DOCUMENT_TITLE}`) {
-      e.target.value = '';
-      e.target.removeAttribute('placeholder');
-      e.target.removeEventListener('click', handleInputClick);
-    }
-  };
-
   this.render();
 
   $editor.querySelector('[name=title]').addEventListener('click', handleInputClick);
-
   $editor.querySelector('[name=title]').addEventListener('keyup', (e) => {
     const nextState = { ...this.state, title: e.target.value };
     this.setState(nextState);
