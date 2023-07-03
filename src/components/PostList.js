@@ -26,8 +26,8 @@ export default function PostList({ $target, initialState, addDocument, deleteDoc
       <div class='documents-tree'>
         <li data-id="${id}">
         ▶️${title}
-        <button data-name="add" class="add-button"> + </button>
-        <button data-name="remove"class="delete-button"> - </button>
+        <button class="add-button"> + </button>
+        <button class="delete-button"> - </button>
         </li>
         ${documents.map((document) => drawUpDocumentList([document])).join('')}
       </div>
@@ -42,7 +42,7 @@ export default function PostList({ $target, initialState, addDocument, deleteDoc
 
   this.render = () => {
     const documentsList = drawUpDocumentList(this.state);
-    const documentAddButton = `<button class="add-button">➕ 페이지 추가하기</button>`;
+    const documentAddButton = `<button class="page-add__button">+ 페이지 추가하기</button>`;
     $postList.innerHTML = `
       <div class="list">${documentsList}${documentAddButton}</div>
     `;

@@ -124,3 +124,30 @@ li {
   font-weight: 500;
   margin-bottom: 1rem;
 }
+
+/* 버튼 관련 */
+
+.add-button,
+.delete-button,
+.page-add__button {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  background-color: #00d26a;
+  border-style: none;
+  color: white;
+  border-radius: 0.3rem;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 0;
+}
+
+.page-add__button {
+  width: 200px;
+  height: 30px;
+  border-radius: 0.5rem;
+  padding: 0.2rem;
+  font-size: 14px;
+  margin-left: 0.8rem;
+  margin-top: 0.5rem;
+}
