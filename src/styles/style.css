@@ -20,6 +20,8 @@ ul {
 li {
   padding-bottom: 0.3rem;
   cursor: pointer;
+  display: inline-block;
+  max-width: max-content;
 }
 
 #app {
