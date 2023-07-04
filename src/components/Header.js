@@ -1,6 +1,7 @@
 import { push } from '../domain/router';
 import { validateComponent } from '../utils/validation';
 
+// SidebarHeader
 export default function Header({ $target, initialState }) {
   validateComponent(new.target);
 

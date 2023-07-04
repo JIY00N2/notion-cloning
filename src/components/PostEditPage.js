@@ -6,10 +6,12 @@ import { validateComponent, validateString } from '../utils/validation';
 import { updateDocument, getDocument } from '../domain/apiCall';
 import { TEMP_DATA_MESSAGE } from '../constants';
 
+// DocumentEditPage
 export default function PostEditPage({ $target, initialState, renderDocumentList }) {
   validateComponent(new.target);
 
   const $page = document.createElement('div');
+  // edit-document
   $page.classList.add('edit-page');
 
   validateString(initialState.posts);
